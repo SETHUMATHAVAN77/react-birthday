@@ -1,19 +1,25 @@
-import "./app.css";
+import React, { useState } from "react";
 import dataDogs from "./data";
-import Dogs from "./components/Dogs";
 
-function App() {
+import List from "./components/list";
+
+const App = () => {
+  const [people, setPeople] = useState(dataDogs);
+
+  const removeItem = (id) => {
+    const leftItems = people.filter((persons) => persons.id !== id);
+
+    setPeople(leftItems);
+  };
+
   return (
     <main className="card">
-      <h1>
-        <span>5</span> BirthDays today
-      </h1>
-      <div>
-        <Dogs dogsData={dataDogs} />
-      </div>
-      <button>Clear All</button>
+      <List person={people} removePerson={removeItem} />
+      <button type="button" className="button" onClick={() => setPeople([])}>
+        Clear All
+      </button>
     </main>
   );
-}
+};
 
 export default App;
